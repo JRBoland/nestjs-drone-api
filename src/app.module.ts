@@ -6,10 +6,11 @@ import { AppService } from './app.service';
 //import { DronesModule } from './drones/drones.module';
 //import { FlightsModule } from './flights/flights.module';
 import { DronesController } from './drones/drones.controller';
+import { FlightsController } from './flights/flights.controller';
 
 @Module({
   imports: [],
-  controllers: [AppController, DronesController],
+  controllers: [AppController, DronesController, FlightsController],
   providers: [AppService],
 })
 export class AppModule {}
