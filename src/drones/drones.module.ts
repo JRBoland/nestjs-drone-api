@@ -4,6 +4,6 @@ import { DronesController } from './drones.controller';
 
 @Module({
   providers: [DronesService],
-  controllers: [DronesController]
+  controllers: [DronesController],
 })
 export class DronesModule {}
