@@ -8,7 +8,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ListAllEntities, CreateDroneDto, UpdateDroneDto } from './dto';
+import { CreateDroneDto, UpdateDroneDto } from './dto';
 import { DronesService } from './drones.service';
 import { Drone } from './interfaces/drone.interface';
 

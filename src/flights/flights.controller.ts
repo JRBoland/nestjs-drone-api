@@ -8,18 +8,27 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ListAllEntities, CreateFlightDto, UpdateFlightDto } from './dto';
+import { CreateFlightDto, UpdateFlightDto } from './dto';
+import { FlightsService } from './flights.service';
+import { Flight } from './interfaces/flight.interface';
 
 @Controller('flights')
 export class FlightsController {
+  constructor(private flightsService: FlightsService) {}
+
   @Post()
-  create(@Body() createFlightDto: CreateFlightDto) {
-    return 'This action adds a new flight';
+  async create(@Body() createFlightDto: CreateFlightDto) {
+    this.flightsService.create(createFlightDto);
   }
 
+  //@Get()
+  //findAll(@Query() query: ListAllEntities) {
+  //  return `This action returns all flights (limit: ${query.limit} items)`;
+  //}
+
   @Get()
-  findAll(@Query() query: ListAllEntities) {
-    return `This action returns all flights (limit: ${query.limit} items)`;
+  async findAll(): Promise<Flight[]> {
+    return this.flightsService.findAll();
   }
 
   @Get(':id')

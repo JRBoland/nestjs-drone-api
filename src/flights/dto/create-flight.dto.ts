@@ -5,7 +5,7 @@ export class CreateFlightDto {
   drone: string;
 
   @IsString()
-  pilot: number;
+  pilot: string;
 }
 
 //Need to add timestamp (on top of ID, details etc.)

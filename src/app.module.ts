@@ -10,6 +10,7 @@ import { FlightsController } from './flights/flights.controller';
 import { UsersController } from './users/users.controller';
 import { PilotsController } from './pilots/pilots.controller';
 import { DronesService } from './drones/drones.service';
+import { FlightsService } from './flights/flights.service';
 
 @Module({
   imports: [],
@@ -20,6 +21,6 @@ import { DronesService } from './drones/drones.service';
     PilotsController,
     UsersController,
   ],
-  providers: [AppService, DronesService],
+  providers: [AppService, DronesService, FlightsService],
 })
 export class AppModule {}
