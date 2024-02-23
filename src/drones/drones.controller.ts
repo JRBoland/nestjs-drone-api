@@ -9,17 +9,26 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ListAllEntities, CreateDroneDto, UpdateDroneDto } from './dto';
+import { DronesService } from './drones.service';
+import { Drone } from './interfaces/drone.interface';
 
 @Controller('drones')
 export class DronesController {
+  constructor(private dronesService: DronesService) {}
+
   @Post()
-  create(@Body() createDroneDto: CreateDroneDto) {
-    return 'This action adds a new drone';
+  async create(@Body() createDroneDto: CreateDroneDto) {
+    this.dronesService.create(createDroneDto);
   }
 
+  //@Get()
+  //findAll(@Query() query: ListAllEntities) {
+  //  return `This action returns all drones (limit: ${query.limit} items)`;
+  //}
+
   @Get()
-  findAll(@Query() query: ListAllEntities) {
-    return `This action returns all drones (limit: ${query.limit} items)`;
+  async findAll(): Promise<Drone[]> {
+    return this.dronesService.findAll();
   }
 
   @Get(':id')
