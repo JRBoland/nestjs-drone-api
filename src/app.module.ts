@@ -11,6 +11,7 @@ import { UsersController } from './users/users.controller';
 import { PilotsController } from './pilots/pilots.controller';
 import { DronesService } from './drones/drones.service';
 import { FlightsService } from './flights/flights.service';
+import { PilotsService } from './pilots/pilots.service';
 
 @Module({
   imports: [],
@@ -21,6 +22,6 @@ import { FlightsService } from './flights/flights.service';
     PilotsController,
     UsersController,
   ],
-  providers: [AppService, DronesService, FlightsService],
+  providers: [AppService, DronesService, FlightsService, PilotsService],
 })
 export class AppModule {}

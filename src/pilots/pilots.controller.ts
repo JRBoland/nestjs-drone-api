@@ -9,17 +9,21 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ListAllEntities, CreatePilotDto, UpdatePilotDto } from './dto';
+import { PilotsService } from './pilots.service';
+import { Pilot } from './interfaces/pilot.interface';
 
 @Controller('pilots')
 export class PilotsController {
+  constructor(private pilotsService: PilotsService) {}
+
   @Post()
-  create(@Body() createPilotDto: CreatePilotDto) {
-    return 'This action adds a new pilot';
+  async create(@Body() createPilotDto: CreatePilotDto) {
+    this.pilotsService.create(createPilotDto);
   }
 
   @Get()
-  findAll(@Query() query: ListAllEntities) {
-    return `This action returns all pilots (limit: ${query.limit} items)`;
+  async findAll(): Promise<Pilot[]> {
+    return this.pilotsService.findAll();
   }
 
   @Get(':id')
