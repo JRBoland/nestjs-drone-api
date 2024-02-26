@@ -1,14 +1,13 @@
 import {
   Controller,
   Get,
-  Query,
   Post,
   Body,
   Put,
   Param,
   Delete,
 } from '@nestjs/common';
-import { ListAllEntities, CreatePilotDto, UpdatePilotDto } from './dto';
+import { CreatePilotDto, UpdatePilotDto } from './dto';
 import { PilotsService } from './pilots.service';
 import { Pilot } from './interfaces/pilot.interface';
 

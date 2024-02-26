@@ -1,25 +1,28 @@
 import {
   Controller,
   Get,
-  Query,
   Post,
   Body,
   Put,
   Param,
   Delete,
 } from '@nestjs/common';
-import { ListAllEntities, CreateUserDto, UpdateUserDto } from './dto';
+import { CreateUserDto, UpdateUserDto } from './dto';
+import { UsersService } from './users.service';
+import { User } from './interfaces/user.interface';
 
 @Controller('Users')
 export class UsersController {
+  constructor(private usersService: UsersService) {}
+
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(@Body() createUserDto: CreateUserDto) {
+    this.usersService.create(createUserDto);
   }
 
   @Get()
-  findAll(@Query() query: ListAllEntities) {
-    return `This action returns all users (limit: ${query.limit} items)`;
+  async findAll(): Promise<User[]> {
+    return this.usersService.findAll();
   }
 
   @Get(':id')
