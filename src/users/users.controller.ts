@@ -6,6 +6,9 @@ import {
   Put,
   Param,
   Delete,
+  UsePipes,
+  ValidationPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { UsersService } from './users.service';
@@ -16,6 +19,7 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Post()
+  @UsePipes(new ValidationPipe({ transform: true }))
   async create(@Body() createUserDto: CreateUserDto) {
     this.usersService.create(createUserDto);
   }
@@ -26,7 +30,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id', new ParseIntPipe()) id: string) {
     return `This action returns a #${id} user`;
   }
 
