@@ -7,16 +7,32 @@ import {
   Put,
   Param,
   Delete,
+  HttpStatus,
+  HttpException,
+  UseFilters,
+  ParseIntPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { CreateDroneDto, UpdateDroneDto } from './dto';
 import { DronesService } from './drones.service';
 import { Drone } from './interfaces/drone.interface';
+import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
+import { ZodValidationPipe } from 'src/common/pipes/zod-validation.pipe';
+import { createDroneSchema } from './schema/create-drone.schema';
+import { ValidationPipe } from 'src/common/pipes/validation.pipe';
 
 @Controller('drones')
 export class DronesController {
   constructor(private dronesService: DronesService) {}
 
+  //@Post()
+  //@UsePipes(new ZodValidationPipe(createDroneSchema))
+  //async create(@Body() createDroneDto: CreateDroneDto) {
+  //  this.dronesService.create(createDroneDto);
+  //}
+
   @Post()
+  @UsePipes(new ValidationPipe())
   async create(@Body() createDroneDto: CreateDroneDto) {
     this.dronesService.create(createDroneDto);
   }
@@ -32,7 +48,7 @@ export class DronesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return `This action returns a #${id} drone`;
   }
 
