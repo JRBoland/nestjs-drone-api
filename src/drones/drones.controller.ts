@@ -1,18 +1,13 @@
 import {
   Controller,
   Get,
-  Query,
   Post,
   Body,
   Put,
   Param,
   Delete,
-  HttpStatus,
-  HttpException,
-  UseFilters,
   UsePipes,
   ValidationPipe,
-  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { CreateDroneDto, UpdateDroneDto } from './dto';
@@ -22,7 +17,7 @@ import { Drone } from './interfaces/drone.interface';
 //import { ZodValidationPipe } from 'src/common/pipes/zod-validation.pipe';
 //import { createDroneSchema } from './schema/create-drone.schema';
 import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
-import { RolesGuard } from 'src/common/guards/roles.guard';
+//import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor';
 import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
