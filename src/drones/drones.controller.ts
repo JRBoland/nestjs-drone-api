@@ -28,7 +28,7 @@ import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor'
 import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
 import { TimeoutInterceptor } from 'src/common/interceptors/timeout.interceptor';
 import { ErrorsInterceptor } from 'src/common/interceptors/errors.interceptor';
-import { CacheInterceptor } from 'src/common/interceptors/cache.interceptor';
+//import { CacheInterceptor } from 'src/common/interceptors/cache.interceptor';
 
 @Controller('drones')
 @UseInterceptors(
@@ -36,7 +36,6 @@ import { CacheInterceptor } from 'src/common/interceptors/cache.interceptor';
   TransformInterceptor,
   TimeoutInterceptor,
   ErrorsInterceptor,
-  CacheInterceptor,
 )
 export class DronesController {
   constructor(private dronesService: DronesService) {}
