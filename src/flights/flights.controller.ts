@@ -6,6 +6,8 @@ import {
   Put,
   Param,
   Delete,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CreateFlightDto, UpdateFlightDto } from './dto';
 import { FlightsService } from './flights.service';
@@ -15,15 +17,16 @@ import { Flight } from './interfaces/flight.interface';
 export class FlightsController {
   constructor(private flightsService: FlightsService) {}
 
-  @Post()
-  async create(@Body() createFlightDto: CreateFlightDto) {
-    this.flightsService.create(createFlightDto);
-  }
-
   //@Get()
   //findAll(@Query() query: ListAllEntities) {
   //  return `This action returns all flights (limit: ${query.limit} items)`;
   //}
+
+  @Post()
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async create(@Body() createFlightDto: CreateFlightDto) {
+    this.flightsService.create(createFlightDto);
+  }
 
   @Get()
   async findAll(): Promise<Flight[]> {
