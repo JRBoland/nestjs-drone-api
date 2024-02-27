@@ -30,7 +30,7 @@ export class PilotsController {
   }
 
   @Get(':id')
-  findOne(@Param('id', new ParseIntPipe()) id: string) {
+  async findOne(@Param('id', new ParseIntPipe()) id: string) {
     return `This action returns a #${id} pilot`;
   }
 
