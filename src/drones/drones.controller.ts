@@ -13,6 +13,7 @@ import {
   UsePipes,
   ValidationPipe,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateDroneDto, UpdateDroneDto } from './dto';
 import { DronesService } from './drones.service';
@@ -23,8 +24,20 @@ import { Drone } from './interfaces/drone.interface';
 import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
+import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor';
+import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
+import { TimeoutInterceptor } from 'src/common/interceptors/timeout.interceptor';
+import { ErrorsInterceptor } from 'src/common/interceptors/errors.interceptor';
+import { CacheInterceptor } from 'src/common/interceptors/cache.interceptor';
 
 @Controller('drones')
+@UseInterceptors(
+  LoggingInterceptor,
+  TransformInterceptor,
+  TimeoutInterceptor,
+  ErrorsInterceptor,
+  CacheInterceptor,
+)
 export class DronesController {
   constructor(private dronesService: DronesService) {}
 
@@ -36,7 +49,7 @@ export class DronesController {
 
   @Post()
   @Roles(['admin'])
-  @UseGuards(RolesGuard)
+  //@UseGuards(RolesGuard)
   @UsePipes(new ValidationPipe({ transform: true }))
   async create(@Body() createDroneDto: CreateDroneDto) {
     this.dronesService.create(createDroneDto);
