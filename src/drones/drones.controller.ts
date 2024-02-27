@@ -12,6 +12,7 @@ import {
   UseFilters,
   UsePipes,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateDroneDto, UpdateDroneDto } from './dto';
 import { DronesService } from './drones.service';
@@ -20,6 +21,8 @@ import { Drone } from './interfaces/drone.interface';
 //import { ZodValidationPipe } from 'src/common/pipes/zod-validation.pipe';
 //import { createDroneSchema } from './schema/create-drone.schema';
 import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { Roles } from 'src/common/decorators/roles.decorator';
 
 @Controller('drones')
 export class DronesController {
@@ -32,6 +35,8 @@ export class DronesController {
   //}
 
   @Post()
+  @Roles(['admin'])
+  @UseGuards(RolesGuard)
   @UsePipes(new ValidationPipe({ transform: true }))
   async create(@Body() createDroneDto: CreateDroneDto) {
     this.dronesService.create(createDroneDto);
