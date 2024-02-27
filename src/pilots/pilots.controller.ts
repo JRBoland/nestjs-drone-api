@@ -6,6 +6,9 @@ import {
   Put,
   Param,
   Delete,
+  UsePipes,
+  ValidationPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CreatePilotDto, UpdatePilotDto } from './dto';
 import { PilotsService } from './pilots.service';
@@ -16,6 +19,7 @@ export class PilotsController {
   constructor(private pilotsService: PilotsService) {}
 
   @Post()
+  @UsePipes(new ValidationPipe({ transform: true }))
   async create(@Body() createPilotDto: CreatePilotDto) {
     this.pilotsService.create(createPilotDto);
   }
@@ -26,7 +30,7 @@ export class PilotsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', new ParseIntPipe()) id: string) {
     return `This action returns a #${id} pilot`;
   }
 

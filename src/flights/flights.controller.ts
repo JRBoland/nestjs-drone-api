@@ -8,6 +8,7 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CreateFlightDto, UpdateFlightDto } from './dto';
 import { FlightsService } from './flights.service';
@@ -34,7 +35,7 @@ export class FlightsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', new ParseIntPipe()) id: string) {
     return `This action returns a #${id} flight`;
   }
 

@@ -7,4 +7,4 @@ export const createFlightSchema = z
   })
   .required();
 
-export type CreateDroneDto = z.infer<typeof createFlightSchema>;
+export type CreateFlightDto = z.infer<typeof createFlightSchema>;
