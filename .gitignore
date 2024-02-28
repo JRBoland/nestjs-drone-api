@@ -3,6 +3,9 @@
 /node_modules
 /build
 
+# jwt secrets
+/src/auth/constants.ts
+
 # Logs
 logs
 *.log

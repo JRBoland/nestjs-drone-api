@@ -8,7 +8,6 @@ import { AppService } from './app.service';
 //import { FlightsModule } from './flights/flights.module';
 import { DronesController } from './drones/drones.controller';
 import { FlightsController } from './flights/flights.controller';
-import { UsersController } from './users/users.controller';
 import { PilotsController } from './pilots/pilots.controller';
 import { DronesService } from './drones/drones.service';
 import { FlightsService } from './flights/flights.service';
@@ -18,15 +17,15 @@ import { DronesModule } from './drones/drones.module';
 import { FlightsModule } from './flights/flights.module';
 import { PilotsModule } from './pilots/pilots.module';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [DronesModule, FlightsModule, PilotsModule, UsersModule],
+  imports: [DronesModule, FlightsModule, PilotsModule, UsersModule, AuthModule],
   controllers: [
     AppController,
     DronesController,
     FlightsController,
     PilotsController,
-    UsersController,
   ],
   providers: [
     AppService,
@@ -40,11 +39,6 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleware)
-      .forRoutes(
-        DronesController,
-        FlightsController,
-        PilotsController,
-        UsersController,
-      );
+      .forRoutes(DronesController, FlightsController, PilotsController);
   }
 }

@@ -26,6 +26,7 @@ import { ValidationPipe } from 'src/common/pipes/validation.pipe';
 //import { CacheInterceptor } from 'src/common/interceptors/cache.interceptor';
 //import { ErrorsInterceptor } from 'src/common/interceptors/errors.interceptor';
 //import { TimeoutInterceptor } from 'src/common/interceptors/timeout.interceptor';
+import { AuthGuard } from '@nestjs/passport';
 
 @UseFilters(HttpExceptionFilter)
 @UseInterceptors(LoggingInterceptor, TransformInterceptor)
@@ -41,7 +42,8 @@ export class DronesController {
   //}
 
   @Post()
-  @Roles(['admin'])
+  @UseGuards(AuthGuard('jwt'))
+  //@Roles(['admin'])
   //@UseGuards(RolesGuard)
   @UsePipes(ValidationPipe)
   async create(@Body() createDroneDto: CreateDroneDto) {
