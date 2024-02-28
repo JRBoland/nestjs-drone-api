@@ -7,8 +7,9 @@ import {
   Param,
   Delete,
   UsePipes,
-  ValidationPipe,
   UseInterceptors,
+  UseFilters,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateDroneDto, UpdateDroneDto } from './dto';
 import { DronesService } from './drones.service';
@@ -17,21 +18,25 @@ import { Drone } from './interfaces/drone.interface';
 //import { ZodValidationPipe } from 'src/common/pipes/zod-validation.pipe';
 //import { createDroneSchema } from './schema/create-drone.schema';
 import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
-//import { RolesGuard } from 'src/common/guards/roles.guard';
+import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor';
 import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
 import { TimeoutInterceptor } from 'src/common/interceptors/timeout.interceptor';
 import { ErrorsInterceptor } from 'src/common/interceptors/errors.interceptor';
+import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 //import { CacheInterceptor } from 'src/common/interceptors/cache.interceptor';
+import { ValidationPipe } from 'src/common/pipes/validation.pipe';
 
-@Controller('drones')
+@UseFilters(HttpExceptionFilter)
 @UseInterceptors(
   LoggingInterceptor,
   TransformInterceptor,
   TimeoutInterceptor,
   ErrorsInterceptor,
 )
+@UseGuards(RolesGuard)
+@Controller('drones')
 export class DronesController {
   constructor(private dronesService: DronesService) {}
 
@@ -44,8 +49,9 @@ export class DronesController {
   @Post()
   @Roles(['admin'])
   //@UseGuards(RolesGuard)
-  @UsePipes(new ValidationPipe({ transform: true }))
+  @UsePipes(ValidationPipe)
   async create(@Body() createDroneDto: CreateDroneDto) {
+    console.log('running create()');
     this.dronesService.create(createDroneDto);
   }
 
@@ -61,11 +67,16 @@ export class DronesController {
 
   @Get(':id')
   async findOne(@Param('id', new ParseIntPipe()) id: string) {
+    console.log('running findOne()');
     return `This action returns a #${id} drone`;
   }
 
+  @UsePipes(ValidationPipe)
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateDroneDto: UpdateDroneDto) {
+  update(
+    @Param('id', new ParseIntPipe()) id: string,
+    @Body() updateDroneDto: UpdateDroneDto,
+  ) {
     return `This action updates a #${id} drone`;
   }
 
