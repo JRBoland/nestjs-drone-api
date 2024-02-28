@@ -14,27 +14,21 @@ import {
 import { CreateDroneDto, UpdateDroneDto } from './dto';
 import { DronesService } from './drones.service';
 import { Drone } from './interfaces/drone.interface';
-//import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
-//import { ZodValidationPipe } from 'src/common/pipes/zod-validation.pipe';
-//import { createDroneSchema } from './schema/create-drone.schema';
 import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor';
 import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
-import { TimeoutInterceptor } from 'src/common/interceptors/timeout.interceptor';
-import { ErrorsInterceptor } from 'src/common/interceptors/errors.interceptor';
 import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
-//import { CacheInterceptor } from 'src/common/interceptors/cache.interceptor';
 import { ValidationPipe } from 'src/common/pipes/validation.pipe';
+//import { ZodValidationPipe } from 'src/common/pipes/zod-validation.pipe';
+//import { createDroneSchema } from './schema/create-drone.schema';
+//import { CacheInterceptor } from 'src/common/interceptors/cache.interceptor';
+//import { ErrorsInterceptor } from 'src/common/interceptors/errors.interceptor';
+//import { TimeoutInterceptor } from 'src/common/interceptors/timeout.interceptor';
 
 @UseFilters(HttpExceptionFilter)
-@UseInterceptors(
-  LoggingInterceptor,
-  TransformInterceptor,
-  TimeoutInterceptor,
-  ErrorsInterceptor,
-)
+@UseInterceptors(LoggingInterceptor, TransformInterceptor)
 @UseGuards(RolesGuard)
 @Controller('drones')
 export class DronesController {
@@ -51,7 +45,7 @@ export class DronesController {
   //@UseGuards(RolesGuard)
   @UsePipes(ValidationPipe)
   async create(@Body() createDroneDto: CreateDroneDto) {
-    console.log('running create()');
+    console.log('running drones create()');
     this.dronesService.create(createDroneDto);
   }
 
@@ -67,7 +61,7 @@ export class DronesController {
 
   @Get(':id')
   async findOne(@Param('id', new ParseIntPipe()) id: string) {
-    console.log('running findOne()');
+    console.log('running drones findOne()');
     return `This action returns a #${id} drone`;
   }
 
