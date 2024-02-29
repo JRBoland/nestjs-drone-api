@@ -30,7 +30,6 @@ import { AuthGuard } from '@nestjs/passport';
 
 @UseFilters(HttpExceptionFilter)
 @UseInterceptors(LoggingInterceptor, TransformInterceptor)
-@UseGuards(RolesGuard)
 @Controller('drones')
 export class DronesController {
   constructor(private dronesService: DronesService) {}
@@ -42,9 +41,8 @@ export class DronesController {
   //}
 
   @Post()
-  @UseGuards(AuthGuard('jwt'))
-  //@Roles(['admin'])
-  //@UseGuards(RolesGuard)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
   @UsePipes(ValidationPipe)
   async create(@Body() createDroneDto: CreateDroneDto) {
     console.log('running drones create()');

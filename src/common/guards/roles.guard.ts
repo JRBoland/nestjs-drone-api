@@ -14,8 +14,15 @@ export class RolesGuard implements CanActivate {
     }
     const request = context.switchToHttp().getRequest();
     const user = request.user;
+
+    // Added safety checks
+    if (!user) {
+      dbg(this, 'no metadata');
+      return false; // Or handle according to your auth logic
+    }
+
     const hasRole = () => user.roles.some((role) => roles.includes(role));
     dbg(this, 'hasRole: ', hasRole());
-    return user && user.roles && hasRole();
+    return hasRole();
   }
 }

@@ -21,16 +21,17 @@ import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor'
 import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
 import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 import { ValidationPipe } from 'src/common/pipes/validation.pipe';
+import { AuthGuard } from '@nestjs/passport';
 
 @UseFilters(HttpExceptionFilter)
 @UseInterceptors(LoggingInterceptor, TransformInterceptor)
-@UseGuards(RolesGuard)
 @Controller('pilots')
 export class PilotsController {
   constructor(private pilotsService: PilotsService) {}
 
   @Post()
-  @Roles(['admin'])
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
   @UsePipes(ValidationPipe)
   async create(@Body() createPilotDto: CreatePilotDto) {
     console.log('running pilots create()');
