@@ -18,9 +18,32 @@ import { FlightsModule } from './flights/flights.module';
 import { PilotsModule } from './pilots/pilots.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './users/user.entity';
+import { Drone } from './drones/drones.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [DronesModule, FlightsModule, PilotsModule, UsersModule, AuthModule],
+  imports: [
+    DronesModule,
+    FlightsModule,
+    PilotsModule,
+    UsersModule,
+    AuthModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.POSTGRES_HOST,
+      port: parseInt(<string>process.env.POSTGRES_PORT),
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DATABASE,
+      autoLoadEntities: true,
+      synchronize: true,
+      logging: true,
+      entities: [User, Drone],
+    }),
+  ],
   controllers: [
     AppController,
     DronesController,
@@ -32,7 +55,7 @@ import { AuthModule } from './auth/auth.module';
     DronesService,
     FlightsService,
     PilotsService,
-    UsersService,
+    //UsersService,
   ],
 })
 export class AppModule implements NestModule {
