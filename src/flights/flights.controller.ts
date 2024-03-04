@@ -38,9 +38,9 @@ export class FlightsController {
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('admin')
   @UsePipes(ValidationPipe)
-  async create(@Body() createFlightDto: CreateFlightDto) {
+  async create(@Body() createFlightDto: CreateFlightDto): Promise<Flight> {
     console.log('running flights create()');
-    this.flightsService.create(createFlightDto);
+    return await this.flightsService.create(createFlightDto);
   }
 
   @Get()

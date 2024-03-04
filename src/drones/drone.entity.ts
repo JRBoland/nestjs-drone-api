@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Flight } from 'src/flights/flight.entity';
 
 @Entity('drones')
 export class Drone {
@@ -10,4 +11,7 @@ export class Drone {
 
   @Column()
   weight: number;
+
+  @OneToMany(() => Flight, (flight) => flight.drone)
+  flights: Flight[];
 }

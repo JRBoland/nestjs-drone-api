@@ -1,11 +1,17 @@
-import { IsString } from 'class-validator';
+import { IsDate, IsNotEmpty, IsNumber } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateFlightDto {
-  @IsString()
-  drone: string;
+  @Type(() => Date)
+  @IsDate()
+  @IsNotEmpty()
+  flight_date: Date;
 
-  @IsString()
-  pilot: string;
+  @IsNumber()
+  @IsNotEmpty()
+  pilot_id: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  drone_id: number;
 }
-
-//Need to add timestamp (on top of ID, details etc.)
