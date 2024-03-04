@@ -33,9 +33,9 @@ export class PilotsController {
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('admin')
   @UsePipes(ValidationPipe)
-  async create(@Body() createPilotDto: CreatePilotDto) {
+  async create(@Body() createPilotDto: CreatePilotDto): Promise<Pilot> {
     console.log('running pilots create()');
-    this.pilotsService.create(createPilotDto);
+    return await this.pilotsService.create(createPilotDto);
   }
 
   @Get()

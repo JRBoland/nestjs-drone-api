@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateDroneDto } from './dto';
-import { Drone } from './drones.entity'; // Assuming this is the path to your Drone entity
+import { Drone } from './drone.entity';
 
 @Injectable()
 export class DronesService {

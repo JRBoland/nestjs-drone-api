@@ -1,15 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { Pilot } from './interfaces/pilot.interface';
+import { Pilot } from './pilot.entity';
+import { CreatePilotDto } from './dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PilotsService {
-  private readonly pilots: Pilot[] = [];
+  constructor(
+    @InjectRepository(Pilot)
+    private pilotsRepository: Repository<Pilot>,
+  ) {}
 
-  create(pilot: Pilot) {
-    this.pilots.push(pilot);
+  async create(createPilotDto: CreatePilotDto): Promise<Pilot> {
+    const pilot = this.pilotsRepository.create(createPilotDto);
+    await this.pilotsRepository.save(pilot);
+    return pilot;
   }
 
-  findAll(): Pilot[] {
-    return this.pilots;
+  async findAll(): Promise<Pilot[]> {
+    return await this.pilotsRepository.find();
   }
 }
