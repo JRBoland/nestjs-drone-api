@@ -1,5 +1,5 @@
 export interface User {
-  name: string;
-  age: number;
-  admin: boolean;
+  username: string;
+  password: string;
+  roles: string[];
 }

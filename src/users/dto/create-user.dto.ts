@@ -1,12 +1,13 @@
-import { IsString, IsInt, IsBoolean } from 'class-validator';
+import { IsString, IsArray } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
-  name: string;
+  username: string;
 
-  @IsInt()
-  age: number;
+  @IsString()
+  password: string;
 
-  @IsBoolean()
-  admin: boolean;
+  @IsArray()
+  @IsString({ each: true })
+  roles: string[];
 }

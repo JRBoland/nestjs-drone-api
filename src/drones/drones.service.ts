@@ -1,15 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { Drone } from './interfaces/drone.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateDroneDto } from './dto';
+import { Drone } from './drones.entity'; // Assuming this is the path to your Drone entity
 
 @Injectable()
 export class DronesService {
-  private readonly drones: Drone[] = [];
+  constructor(
+    @InjectRepository(Drone)
+    private dronesRepository: Repository<Drone>,
+  ) {}
 
-  create(drone: Drone) {
-    this.drones.push(drone);
+  async create(createDroneDto: CreateDroneDto): Promise<Drone> {
+    const drone = this.dronesRepository.create(createDroneDto);
+    await this.dronesRepository.save(drone);
+    return drone;
   }
 
-  findAll(): Drone[] {
-    return this.drones;
+  async findAll(): Promise<Drone[]> {
+    return await this.dronesRepository.find();
   }
 }

@@ -44,9 +44,9 @@ export class DronesController {
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('admin')
   @UsePipes(ValidationPipe)
-  async create(@Body() createDroneDto: CreateDroneDto) {
+  async create(@Body() createDroneDto: CreateDroneDto): Promise<Drone> {
     console.log('running drones create()');
-    this.dronesService.create(createDroneDto);
+    return await this.dronesService.create(createDroneDto);
   }
 
   //@Get()
