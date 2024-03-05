@@ -22,6 +22,12 @@ export class Flight {
   @Column()
   drone_id: number;
 
+  @Column({ default: 'No location specified' })
+  flight_location: string;
+
+  @Column({ default: false })
+  footage_recorded: boolean;
+
   @ManyToOne(() => Pilot)
   @JoinColumn({ name: 'pilot_id' })
   pilot: Pilot;

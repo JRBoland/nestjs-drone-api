@@ -1,4 +1,10 @@
-import { IsDate, IsNotEmpty, IsNumber } from 'class-validator';
+import {
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsBoolean,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreateFlightDto {
@@ -14,4 +20,10 @@ export class CreateFlightDto {
   @IsNumber()
   @IsNotEmpty()
   drone_id: number;
+
+  @IsString()
+  flight_location: string;
+
+  @IsBoolean()
+  footage_recorded: boolean;
 }

@@ -12,6 +12,8 @@ export class Pilot {
   @Column()
   age: number;
 
+  flights_recorded?: number;
+
   @OneToMany(() => Flight, (flight) => flight.pilot)
   flights: Flight[];
 }
