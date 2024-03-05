@@ -1,4 +1,9 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  OnModuleInit,
+} from '@nestjs/common';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -22,6 +27,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { Drone } from './drones/drone.entity';
 import { ConfigModule } from '@nestjs/config';
+import { DatabaseSeederService } from './seeds/database-seeder.service';
 
 @Module({
   imports: [
@@ -55,13 +61,26 @@ import { ConfigModule } from '@nestjs/config';
     DronesService,
     FlightsService,
     PilotsService,
+    DatabaseSeederService,
     //UsersService,
   ],
 })
-export class AppModule implements NestModule {
+export class AppModule implements NestModule, OnModuleInit {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleware)
       .forRoutes(DronesController, FlightsController, PilotsController);
+  }
+
+  constructor(private readonly databaseSeederService: DatabaseSeederService) {}
+
+  async onModuleInit() {
+    // Check if we are in a development environment
+    console.log('Current NODE_ENV:', process.env.NODE_ENV);
+    // to seed DB
+    if (process.env.SEED_DB === 'true') {
+      console.log('database seeding');
+      await this.databaseSeederService.seed();
+    }
   }
 }
