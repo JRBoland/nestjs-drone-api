@@ -10,7 +10,6 @@ import {
   UseInterceptors,
   UseFilters,
   UseGuards,
-  Res,
 } from '@nestjs/common';
 import { CreateDroneDto, UpdateDroneDto } from './dto';
 import { DronesService } from './drones.service';
@@ -28,7 +27,6 @@ import { ValidationPipe } from '../common/pipes/validation.pipe';
 //import { ErrorsInterceptor } from 'src/common/interceptors/errors.interceptor';
 //import { TimeoutInterceptor } from 'src/common/interceptors/timeout.interceptor';
 import { AuthGuard } from '@nestjs/passport';
-import { Response } from 'express';
 
 @UseFilters(HttpExceptionFilter)
 @UseInterceptors(LoggingInterceptor, TransformInterceptor)

@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { CreatePilotDto, UpdatePilotDto } from './dto';
 import { PilotsService } from './pilots.service';
-import { Pilot } from './interfaces/pilot.interface';
+import { Pilot, PilotResponse } from './interfaces/pilot.interface';
 import { ParseIntPipe } from '@nestjs/common';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
@@ -33,33 +33,47 @@ export class PilotsController {
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('admin')
   @UsePipes(ValidationPipe)
-  async create(@Body() createPilotDto: CreatePilotDto): Promise<Pilot> {
+  async create(@Body() createPilotDto: CreatePilotDto): Promise<PilotResponse> {
     console.log('running pilots create()');
-    return await this.pilotsService.create(createPilotDto);
+    const pilot = await this.pilotsService.create(createPilotDto);
+    return { message: 'Pilot created', pilot };
   }
 
   @Get()
   async findAll(): Promise<Pilot[]> {
+    console.log('Running pilots findAll');
     return this.pilotsService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id', new ParseIntPipe()) id: string) {
-    console.log('running pilots findOne()');
-    return `This action returns a #${id} pilot`;
+  @UsePipes(ValidationPipe)
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    console.log(`Running pilots findOne(#${id})`);
+    const pilot = await this.pilotsService.findOne(id);
+    return { message: pilot };
   }
 
   @UsePipes(ValidationPipe)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
   @Put(':id')
-  update(
-    @Param('id', new ParseIntPipe()) id: string,
+  async update(
+    @Param('id', ParseIntPipe) id: number,
     @Body() updatePilotDto: UpdatePilotDto,
-  ) {
-    return `This action updates a #${id} pilot`;
+  ): Promise<PilotResponse> {
+    console.log(`Running update pilot #${id}`);
+    const pilot = await this.pilotsService.update(id, updatePilotDto);
+    return { message: `Pilot #${id} updated: `, pilot };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return `This action removes a #${id} pilot`;
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
+  async remove(@Param('id') id: number) {
+    console.log(`Running remove pilot #${id} and all associated flights`);
+    await this.pilotsService.remove(id);
+    return {
+      message: `Pilot #${id} and all associated flights deleted`,
+    };
   }
 }

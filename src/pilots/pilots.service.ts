@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Pilot } from './pilot.entity';
-import { CreatePilotDto } from './dto';
+import { CreatePilotDto, UpdatePilotDto } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Flight } from '../flights/flight.entity';
@@ -53,5 +53,41 @@ export class PilotsService {
       }),
     );
     return pilotsWithFlightCount;
+  }
+
+  async findOne(id: number): Promise<Pilot> {
+    const pilot = await this.pilotsRepository.findOne({ where: { id } });
+
+    if (!pilot) {
+      throw new NotFoundException(`Pilot #${id} not found`);
+    }
+
+    const flightCount = await this.getFlightsRecorded(pilot.id);
+
+    return {
+      ...pilot,
+      flights_recorded: flightCount,
+    };
+  }
+
+  async update(id: number, updatePilotDto: UpdatePilotDto): Promise<Pilot> {
+    const pilot = await this.pilotsRepository.preload({
+      id: id,
+      ...updatePilotDto,
+    });
+
+    if (!pilot) {
+      throw new NotFoundException(`Pilot #${id} not found`);
+    }
+
+    await this.pilotsRepository.save(pilot);
+    return pilot;
+  }
+
+  async remove(id: number): Promise<void> {
+    const result = await this.pilotsRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Pilot #${id} not found`);
+    }
   }
 }

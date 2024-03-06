@@ -3,3 +3,8 @@ export interface Pilot {
   age: number;
   flights_recorded?: number;
 }
+
+export interface PilotResponse {
+  message: string;
+  pilot: Pilot;
+}

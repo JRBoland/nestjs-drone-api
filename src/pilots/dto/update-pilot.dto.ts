@@ -1,4 +1,4 @@
-export class UpdatePilotDto {
-  readonly name: string;
-  readonly age: number;
-}
+import { PartialType } from '@nestjs/mapped-types';
+import { CreatePilotDto } from './create-pilot.dto';
+
+export class UpdatePilotDto extends PartialType(CreatePilotDto) {}
