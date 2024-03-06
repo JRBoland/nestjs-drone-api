@@ -10,10 +10,11 @@ import {
   UseInterceptors,
   UseFilters,
   UseGuards,
+  Res,
 } from '@nestjs/common';
 import { CreateDroneDto, UpdateDroneDto } from './dto';
 import { DronesService } from './drones.service';
-import { Drone } from './interfaces/drone.interface';
+import { Drone, DroneResponse } from './interfaces/drone.interface';
 import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
@@ -27,6 +28,7 @@ import { ValidationPipe } from '../common/pipes/validation.pipe';
 //import { ErrorsInterceptor } from 'src/common/interceptors/errors.interceptor';
 //import { TimeoutInterceptor } from 'src/common/interceptors/timeout.interceptor';
 import { AuthGuard } from '@nestjs/passport';
+import { Response } from 'express';
 
 @UseFilters(HttpExceptionFilter)
 @UseInterceptors(LoggingInterceptor, TransformInterceptor)
@@ -44,9 +46,10 @@ export class DronesController {
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('admin')
   @UsePipes(ValidationPipe)
-  async create(@Body() createDroneDto: CreateDroneDto): Promise<Drone> {
-    console.log('running drones create()');
-    return await this.dronesService.create(createDroneDto);
+  async create(@Body() createDroneDto: CreateDroneDto): Promise<DroneResponse> {
+    console.log('Running drones create');
+    const drone = await this.dronesService.create(createDroneDto);
+    return { message: 'Drone created', drone };
   }
 
   //@Get()
@@ -56,14 +59,16 @@ export class DronesController {
 
   @Get()
   async findAll(): Promise<Drone[]> {
+    console.log('Running drones findAll');
     return this.dronesService.findAll();
   }
 
   @Get(':id')
   @UsePipes(ValidationPipe)
-  async findOne(@Param('id', new ParseIntPipe()) id: string) {
-    console.log('running drones findOne()');
-    return `This action returns a #${id} drone`;
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    console.log(`Running drones findOne(#${id})`);
+    const drone = await this.dronesService.findOne(id);
+    return { message: drone };
   }
 
   @UsePipes(ValidationPipe)
@@ -73,17 +78,21 @@ export class DronesController {
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateDroneDto: UpdateDroneDto,
-  ): Promise<Drone> {
-    console.log(`This action updates drone #${id}`);
-    return await this.dronesService.update(id, updateDroneDto);
+  ): Promise<DroneResponse> {
+    console.log(`Running update drone #${id}`);
+    const drone = await this.dronesService.update(id, updateDroneDto);
+    return { message: `Drone #${id} updated: `, drone };
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('admin')
   @UsePipes(ValidationPipe)
-  remove(@Param('id') id: number) {
-    console.log(`This action removes drone #${id} and all associated flights`);
-    return this.dronesService.remove(id);
+  async remove(@Param('id') id: number) {
+    await this.dronesService.remove(id);
+    console.log(`Running remove drone #${id} and all associated flights`);
+    return {
+      message: `Drone #${id} and all associated flights deleted`,
+    };
   }
 }

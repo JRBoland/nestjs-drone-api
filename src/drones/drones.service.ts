@@ -22,6 +22,14 @@ export class DronesService {
     return await this.dronesRepository.find();
   }
 
+  async findOne(id: number): Promise<Drone> {
+    const drone = await this.dronesRepository.findOne({ where: { id } });
+    if (!drone) {
+      throw new NotFoundException(`Drone #${id} not found`);
+    }
+    return drone;
+  }
+
   async update(id: number, updateDroneDto: UpdateDroneDto): Promise<Drone> {
     const drone = await this.dronesRepository.preload({
       id: id,
