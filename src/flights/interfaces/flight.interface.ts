@@ -5,3 +5,8 @@ export interface Flight {
   flight_location: string;
   footage_recorded: boolean;
 }
+
+export interface FlightResponse {
+  message: string;
+  flight: Flight;
+}

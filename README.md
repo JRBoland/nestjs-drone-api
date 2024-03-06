@@ -43,7 +43,13 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
+# to seed db
+$ npm run seed
 ```
+
+
+$ npm run seed
 
 ## Test
 

@@ -89,8 +89,8 @@ export class DronesController {
   @Roles('admin')
   @UsePipes(ValidationPipe)
   async remove(@Param('id') id: number) {
-    await this.dronesService.remove(id);
     console.log(`Running remove drone #${id} and all associated flights`);
+    await this.dronesService.remove(id);
     return {
       message: `Drone #${id} and all associated flights deleted`,
     };

@@ -28,7 +28,7 @@ export class Flight {
   @Column({ default: false })
   footage_recorded: boolean;
 
-  @ManyToOne(() => Pilot)
+  @ManyToOne(() => Pilot, (pilot) => pilot.flights, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'pilot_id' })
   pilot: Pilot;
 

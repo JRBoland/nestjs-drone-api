@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { CreateFlightDto, UpdateFlightDto } from './dto';
 import { FlightsService } from './flights.service';
-import { Flight } from './interfaces/flight.interface';
+import { Flight, FlightResponse } from './interfaces/flight.interface';
 import { ParseIntPipe } from '@nestjs/common';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
@@ -34,37 +34,57 @@ export class FlightsController {
   //  return `This action returns all flights (limit: ${query.limit} items)`;
   //}
 
+  //regular user can post a flight
   @Post()
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles('admin')
+  @Roles('admin', 'user')
   @UsePipes(ValidationPipe)
-  async create(@Body() createFlightDto: CreateFlightDto): Promise<Flight> {
+  async create(
+    @Body() createFlightDto: CreateFlightDto,
+  ): Promise<FlightResponse> {
     console.log('running flights create()');
-    return await this.flightsService.create(createFlightDto);
+    console.log(createFlightDto);
+    const flight = await this.flightsService.create(createFlightDto);
+    console.log(createFlightDto);
+    return { message: 'Flight created', flight };
   }
 
   @Get()
   async findAll(): Promise<Flight[]> {
+    console.log('Running flights findAll');
     return this.flightsService.findAll();
   }
 
+  @UsePipes(ValidationPipe)
   @Get(':id')
-  async findOne(@Param('id', new ParseIntPipe()) id: string) {
+  async findOne(@Param('id', new ParseIntPipe()) id: number) {
     console.log('running flights findOne()');
-    return `This action returns a #${id} flight`;
+    const flight = await this.flightsService.findOne(id);
+    return { message: flight };
   }
 
   @UsePipes(ValidationPipe)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
   @Put(':id')
-  update(
-    @Param('id', new ParseIntPipe()) id: string,
+  async update(
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateFlightDto: UpdateFlightDto,
-  ) {
-    return `This action updates a #${id} flight`;
+  ): Promise<FlightResponse> {
+    console.log(`Running update flight #${id}`);
+    const flight = await this.flightsService.update(id, updateFlightDto);
+    return { message: `Flight #${id} updated: `, flight };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return `This action removes a #${id} flight`;
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
+  @UsePipes(ValidationPipe)
+  async remove(@Param('id') id: number) {
+    console.log(`Running remove flight #${id}`);
+    await this.flightsService.remove(id);
+    return {
+      message: `Flight #${id} deleted`,
+    };
   }
 }
