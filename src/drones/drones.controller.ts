@@ -60,12 +60,15 @@ export class DronesController {
   }
 
   @Get(':id')
+  @UsePipes(ValidationPipe)
   async findOne(@Param('id', new ParseIntPipe()) id: string) {
     console.log('running drones findOne()');
     return `This action returns a #${id} drone`;
   }
 
   @UsePipes(ValidationPipe)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
@@ -76,7 +79,11 @@ export class DronesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return `This action removes a #${id} drone`;
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin')
+  @UsePipes(ValidationPipe)
+  remove(@Param('id') id: number) {
+    console.log(`This action removes drone #${id} and all associated flights`);
+    return this.dronesService.remove(id);
   }
 }

@@ -35,4 +35,11 @@ export class DronesService {
     await this.dronesRepository.save(drone);
     return drone;
   }
+
+  async remove(id: number): Promise<void> {
+    const result = await this.dronesRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Drone #${id} not found`);
+    }
+  }
 }

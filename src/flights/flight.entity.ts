@@ -32,7 +32,7 @@ export class Flight {
   @JoinColumn({ name: 'pilot_id' })
   pilot: Pilot;
 
-  @ManyToOne(() => Drone)
+  @ManyToOne(() => Drone, (drone) => drone.flights, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'drone_id' })
   drone: Drone;
 }
