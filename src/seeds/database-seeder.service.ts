@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../users/user.entity';
-import { Pilot } from 'src/pilots/pilot.entity';
-import { Drone } from 'src/drones/drone.entity';
+import { Pilot } from '../pilots/pilot.entity';
+import { Drone } from '../drones/drone.entity';
 //import { Flight } from 'src/flights/flight.entity';
 
 @Injectable()

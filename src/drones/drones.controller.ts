@@ -14,13 +14,13 @@ import {
 import { CreateDroneDto, UpdateDroneDto } from './dto';
 import { DronesService } from './drones.service';
 import { Drone } from './interfaces/drone.interface';
-import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
-import { RolesGuard } from 'src/common/guards/roles.guard';
-import { Roles } from 'src/common/decorators/roles.decorator';
-import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor';
-import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
-import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
-import { ValidationPipe } from 'src/common/pipes/validation.pipe';
+import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../common/decorators/roles.decorator';
+import { LoggingInterceptor } from '../common/interceptors/logging.interceptor';
+import { TransformInterceptor } from '../common/interceptors/transform.interceptor';
+import { HttpExceptionFilter } from '../common/filters/http-exception.filter';
+import { ValidationPipe } from '../common/pipes/validation.pipe';
 //import { ZodValidationPipe } from 'src/common/pipes/zod-validation.pipe';
 //import { createDroneSchema } from './schema/create-drone.schema';
 //import { CacheInterceptor } from 'src/common/interceptors/cache.interceptor';
@@ -67,11 +67,12 @@ export class DronesController {
 
   @UsePipes(ValidationPipe)
   @Put(':id')
-  update(
-    @Param('id', new ParseIntPipe()) id: string,
+  async update(
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateDroneDto: UpdateDroneDto,
-  ) {
-    return `This action updates a #${id} drone`;
+  ): Promise<Drone> {
+    console.log(`This action updates drone #${id}`);
+    return await this.dronesService.update(id, updateDroneDto);
   }
 
   @Delete(':id')

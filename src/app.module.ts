@@ -75,11 +75,12 @@ export class AppModule implements NestModule, OnModuleInit {
   constructor(private readonly databaseSeederService: DatabaseSeederService) {}
 
   async onModuleInit() {
+    const timestamp = new Date().toISOString();
     // Check if we are in a development environment
-    console.log('Current NODE_ENV:', process.env.NODE_ENV);
+    console.log(`${timestamp} Current NODE_ENV:`, process.env.NODE_ENV);
     // to seed DB
     if (process.env.SEED_DB === 'true') {
-      console.log('database seeding');
+      console.log(`${timestamp} Database seeding`);
       await this.databaseSeederService.seed();
     }
   }

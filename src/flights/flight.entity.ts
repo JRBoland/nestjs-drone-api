@@ -5,8 +5,8 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Pilot } from 'src/pilots/pilot.entity';
-import { Drone } from 'src/drones/drone.entity';
+import { Pilot } from '../pilots/pilot.entity';
+import { Drone } from '../drones/drone.entity';
 
 @Entity('flights')
 export class Flight {

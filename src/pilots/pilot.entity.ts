@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Flight } from 'src/flights/flight.entity';
+import { Flight } from '../flights/flight.entity';
 
 @Entity('pilots')
 export class Pilot {

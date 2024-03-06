@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateDroneDto } from './dto';
+import { UpdateDroneDto } from './dto';
 import { Drone } from './drone.entity';
 
 @Injectable()
@@ -19,5 +20,19 @@ export class DronesService {
 
   async findAll(): Promise<Drone[]> {
     return await this.dronesRepository.find();
+  }
+
+  async update(id: number, updateDroneDto: UpdateDroneDto): Promise<Drone> {
+    const drone = await this.dronesRepository.preload({
+      id: id,
+      ...updateDroneDto,
+    });
+
+    if (!drone) {
+      throw new NotFoundException(`Drone #${id} not found`);
+    }
+
+    await this.dronesRepository.save(drone);
+    return drone;
   }
 }

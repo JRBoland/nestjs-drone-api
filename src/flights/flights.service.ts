@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Flight } from './flight.entity';
 import { CreateFlightDto } from './dto';
-import { Pilot } from 'src/pilots/pilot.entity';
-import { Drone } from 'src/drones/drone.entity';
+import { Pilot } from '../pilots/pilot.entity';
+import { Drone } from '../drones/drone.entity';
 
 @Injectable()
 export class FlightsService {
