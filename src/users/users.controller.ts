@@ -50,23 +50,23 @@ export class UsersController {
   //  return { exists: !!user };
   //}
 
-  @Get(':id')
-  async findOne(@Param('id', new ParseIntPipe()) id: string) {
-    console.log('running users findOne()');
-    return `This action returns a #${id} user`;
-  }
-
-  @UsePipes(ValidationPipe)
-  @Put(':id')
-  update(
-    @Param('id', new ParseIntPipe()) id: string,
-    @Body() updateUserDto: UpdateUserDto,
-  ) {
-    return `This action updates a #${id} user`;
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return `This action removes a #${id} user`;
-  }
+  //@Get(':id')
+  //async findOne(@Param('id', new ParseIntPipe()) id: //string) {
+  //  console.log('running users findOne()');
+  //  return `This action returns a #${id} user`;
+  //}
+  //
+  //@UsePipes(ValidationPipe)
+  //@Put(':id')
+  //update(
+  //  @Param('id', new ParseIntPipe()) id: string,
+  //  @Body() updateUserDto: UpdateUserDto,
+  //) {
+  //  return `This action updates a #${id} user`;
+  //}
+  //
+  //@Delete(':id')
+  //remove(@Param('id') id: string) {
+  //  return `This action removes a #${id} user`;
+  //}
 }

@@ -27,35 +27,6 @@ export class UsersService {
   }
 }
 
-// This should be a real class/interface representing a user entity
-//export type User = any;
-//
-//@Injectable()
-//export class UsersService {
-//  private readonly users: User[];
-//
-//  constructor() {
-//    this.users = [
-//      {
-//        id: 1,
-//        username: 'john',
-//        password: 'changeme',
-//        roles: ['admin'],
-//      },
-//      {
-//        id: 2,
-//        username: 'chris',
-//        password: 'secret',
-//        roles: ['user'],
-//      },
-//      {
-//        id: 3,
-//        username: 'maria',
-//        password: 'guess',
-//        roles: ['user'],
-//      },
-//    ];
-//  }
 //
 //  async findOne(username: string): Promise<User | undefined> {
 //    return this.users.find((user) => user.username === username);
