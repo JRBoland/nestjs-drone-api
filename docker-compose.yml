@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db: 
+    image: postgres
+    restart: always
+    environment: 
+      - POSTGRES_USER=jamesboland
+      - POSTGRES_PASSWORD=password123
+      - POSTGRES_DB=nestjs_drone_db
+    container_name: postgres
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nestjs_drone_api
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: jamesboland
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DATABASE: nestjs_drone_db
+      NODE_ENV: development
+      SEED_DB: "true"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"

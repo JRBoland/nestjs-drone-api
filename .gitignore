@@ -6,6 +6,8 @@
 # jwt secrets
 /src/auth/constants.ts
 
+/pgdata
+
 # Logs
 logs
 *.log
