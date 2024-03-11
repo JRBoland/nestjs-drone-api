@@ -3,20 +3,17 @@ import {
   Get,
   Post,
   Body,
-  Put,
-  Param,
-  Delete,
   UsePipes,
   UseInterceptors,
   UseFilters,
   UseGuards,
 } from '@nestjs/common';
-import { CreateUserDto, UpdateUserDto } from './dto';
+import { CreateUserDto } from './dto';
 import { UsersService } from './users.service';
 import { User } from './interfaces/user.interface';
-import { ParseIntPipe } from '@nestjs/common';
+//import { ParseIntPipe } from '@nestjs/common';
 import { RolesGuard } from '../common/guards/roles.guard';
-import { Roles } from '../common/decorators/roles.decorator';
+//import { Roles } from '../common/decorators/roles.decorator';
 import { LoggingInterceptor } from '../common/interceptors/logging.interceptor';
 import { TransformInterceptor } from '../common/interceptors/transform.interceptor';
 import { HttpExceptionFilter } from '../common/filters/http-exception.filter';
