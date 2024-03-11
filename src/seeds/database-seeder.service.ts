@@ -17,6 +17,13 @@ export class DatabaseSeederService {
   ) {}
 
   async seed() {
+    // TO CHECK IF ALREADY SEEDED:
+    const userCount = await this.userRepository.count();
+    if (userCount > 0) {
+      console.log('Seeding already performed. Skipping...');
+      return;
+    }
+
     // TO SEED DB: SEED_DB=true npm run start:dev
     console.log('Starting DB seed');
     // Create and save your seed data
