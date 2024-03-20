@@ -29,11 +29,6 @@ import { AuthGuard } from '@nestjs/passport';
 export class FlightsController {
   constructor(private flightsService: FlightsService) {}
 
-  //@Get()
-  //findAll(@Query() query: ListAllEntities) {
-  //  return `This action returns all flights (limit: ${query.limit} items)`;
-  //}
-
   //regular user can post a flight
   @Post()
   @UseGuards(AuthGuard('jwt'), RolesGuard)

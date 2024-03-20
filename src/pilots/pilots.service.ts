@@ -20,25 +20,12 @@ export class PilotsService {
     return pilot;
   }
 
-  //async findAllPilotsWithFlightCount(): Promise<Pilot[]> {
-  //  const pilots = await this.pilotsRepository.find();
-  //  for (const pilot of pilots) {
-  //    const flightCount = await this.getFlightsRecorded//(pilot.id); // Calculate flights recorded
-  //    pilot.flights_recorded = flightCount; //  add flight //count to pilot entity
-  //  }
-  //  return pilots;
-  //}
-
   async getFlightsRecorded(pilotId: number): Promise<number> {
     const count = await this.flightsRepository.count({
       where: { pilot: { id: pilotId } },
     });
     return count;
   }
-
-  //async findAll(): Promise<Pilot[]> {
-  //  return await this.pilotsRepository.find();
-  //}
 
   async findAll(): Promise<any[]> {
     // Consider defining a specific type or interface for the return value

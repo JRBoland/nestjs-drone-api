@@ -26,10 +26,3 @@ export class UsersService {
     return await this.usersRepository.find();
   }
 }
-
-//
-//  async findOne(username: string): Promise<User | undefined> {
-//    return this.users.find((user) => user.username === username);
-//  }
-//}
-//

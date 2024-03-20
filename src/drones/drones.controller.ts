@@ -21,11 +21,6 @@ import { LoggingInterceptor } from '../common/interceptors/logging.interceptor';
 import { TransformInterceptor } from '../common/interceptors/transform.interceptor';
 import { HttpExceptionFilter } from '../common/filters/http-exception.filter';
 import { ValidationPipe } from '../common/pipes/validation.pipe';
-//import { ZodValidationPipe } from 'src/common/pipes/zod-validation.pipe';
-//import { createDroneSchema } from './schema/create-drone.schema';
-//import { CacheInterceptor } from 'src/common/interceptors/cache.interceptor';
-//import { ErrorsInterceptor } from 'src/common/interceptors/errors.interceptor';
-//import { TimeoutInterceptor } from 'src/common/interceptors/timeout.interceptor';
 import { AuthGuard } from '@nestjs/passport';
 
 @UseFilters(HttpExceptionFilter)
@@ -33,12 +28,6 @@ import { AuthGuard } from '@nestjs/passport';
 @Controller('drones')
 export class DronesController {
   constructor(private dronesService: DronesService) {}
-
-  //@Post()
-  //@UsePipes(new ZodValidationPipe(createDroneSchema))
-  //async create(@Body() createDroneDto: CreateDroneDto) {
-  //  this.dronesService.create(createDroneDto);
-  //}
 
   @Post()
   @UseGuards(AuthGuard('jwt'), RolesGuard)

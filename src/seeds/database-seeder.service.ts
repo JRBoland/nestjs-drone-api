@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { User } from '../users/user.entity';
 import { Pilot } from '../pilots/pilot.entity';
 import { Drone } from '../drones/drone.entity';
-//import { Flight } from 'src/flights/flight.entity';
 
 @Injectable()
 export class DatabaseSeederService {
@@ -12,7 +11,6 @@ export class DatabaseSeederService {
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Pilot) private pilotRepository: Repository<Pilot>,
     @InjectRepository(Drone) private droneRepository: Repository<Drone>,
-    //@InjectRepository(Flight) private flightRepository: Repository<Flight>,
     // Inject other repositories
   ) {}
 
@@ -58,27 +56,5 @@ export class DatabaseSeederService {
       { name: 'DJI Tester Deus', weight: 195 },
     ]);
     await this.droneRepository.save(drones);
-
-    //const flights = this.flightRepository.create([
-    //  {
-    //    pilot_id: 1,
-    //    drone_id: 1,
-    //    flight_location: '',
-    //    footage_recorded: '',
-    //  },
-    //  {
-    //    pilot_id: 2,
-    //    drone_id: 2,
-    //    flight_location: '',
-    //    footage_recorded: '',
-    //  },
-    //  {
-    //    pilot_id: 1,
-    //    drone_id: 2,
-    //    flight_location: '',
-    //    footage_recorded: '',
-    //  },
-    //]);
-    //await this.flightRepository.save(flights);
   }
 }
