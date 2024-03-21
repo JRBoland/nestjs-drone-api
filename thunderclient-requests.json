@@ -1,0 +1,411 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Nestjs Drone API (localhost)",
+    "dateExported": "2024-03-21T03:20:23.509Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "5615c35d-5885-4cc9-95eb-0327421099ae",
+            "name": "Drones",
+            "containerId": "",
+            "created": "2024-03-21T03:18:35.996Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "b992170d-4097-406d-b809-763985912d5d",
+            "name": "Pilots",
+            "containerId": "",
+            "created": "2024-03-21T03:19:01.149Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "f2439e3b-d04e-409f-bd14-a999ea41feea",
+            "name": "Flights",
+            "containerId": "",
+            "created": "2024-03-21T03:19:20.789Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "b6fa8a44-bd5b-4975-b7dc-bb9b745a8a63",
+            "name": "Users/Auth",
+            "containerId": "",
+            "created": "2024-03-21T03:19:38.797Z",
+            "sortNum": 60000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "6c4572dd-c371-405d-aa76-b2125f5a88db",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "5615c35d-5885-4cc9-95eb-0327421099ae",
+            "name": "POST DRONE - Admin",
+            "url": "localhost:3000/drones",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-03-21T03:10:26.627Z",
+            "modified": "2024-03-21T03:10:26.627Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Drone Test\",\n  \"weight\": 2345\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MTA5MDYzMjIsImV4cCI6MTcxMDkwOTkyMn0.AblPMfW2quxzZwPWeKk7EAnxPyqiFZpua4HLg3AKn_8"
+            },
+            "tests": []
+        },
+        {
+            "_id": "1a8e81fe-931f-4b85-ad19-081137ccd1cb",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "b992170d-4097-406d-b809-763985912d5d",
+            "name": "POST PILOT - Admin",
+            "url": "localhost:3000/pilots",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-03-21T03:19:03.125Z",
+            "modified": "2024-03-21T03:19:03.125Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Rodney\",\n  \"age\": 23\n}",
+                "form": []
+            },
+            "reqType": "del",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MDk3MTc2MzEsImV4cCI6MTcwOTcyMTIzMX0.K-DwMjaZLxr6g0I64PCV-Hu5SpXLW1-xg21g4iVm528"
+            },
+            "tests": []
+        },
+        {
+            "_id": "323dfb02-a7da-49d5-a084-d63b386fcaf1",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "f2439e3b-d04e-409f-bd14-a999ea41feea",
+            "name": "POST FLIGHT - User, Admin",
+            "url": "localhost:3000/flights",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-03-21T03:19:24.203Z",
+            "modified": "2024-03-21T03:19:24.203Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"pilot_id\": 2,\n  \"drone_id\": 2,\n  \"footage_recorded\": true\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MTA5MDgxNTcsImV4cCI6MTcxMDkxMTc1N30.x-PLf1-OCdKKQDd2yusHWzK3TsE6k30wIJuehcTFhhE"
+            },
+            "tests": []
+        },
+        {
+            "_id": "01e25c62-4240-4459-bfea-c0b364ea015d",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "b6fa8a44-bd5b-4975-b7dc-bb9b745a8a63",
+            "name": "AUTH LOGIN",
+            "url": "localhost:3000/auth/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-03-21T03:19:41.912Z",
+            "modified": "2024-03-21T03:19:41.912Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"john\",\n  \"password\": \"password123\"\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "tests": []
+        },
+        {
+            "_id": "96795f31-d370-4fdd-860f-b29fa7ba0ef9",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "5615c35d-5885-4cc9-95eb-0327421099ae",
+            "name": "GET DRONES",
+            "url": "localhost:3000/drones",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-03-21T03:10:15.434Z",
+            "modified": "2024-03-21T03:10:15.434Z",
+            "headers": [],
+            "params": [],
+            "reqType": "put",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MDk3ODMwNzQsImV4cCI6MTcwOTc4NjY3NH0.xj41mwgeU29wBIJdXJp1IQ6-nb5DBfGvGmKbOOwc6Y8"
+            },
+            "tests": []
+        },
+        {
+            "_id": "d32350d0-1d9f-4022-810f-f28642f3ecf4",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "b992170d-4097-406d-b809-763985912d5d",
+            "name": "GET PILOTS",
+            "url": "localhost:3000/pilots",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-03-21T03:19:04.159Z",
+            "modified": "2024-03-21T03:19:04.159Z",
+            "headers": [],
+            "params": [],
+            "reqType": "post",
+            "tests": []
+        },
+        {
+            "_id": "da5a402f-d4b3-4b40-bdda-69d064abceba",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "f2439e3b-d04e-409f-bd14-a999ea41feea",
+            "name": "GET FLIGHTS",
+            "url": "localhost:3000/flights",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-03-21T03:19:25.415Z",
+            "modified": "2024-03-21T03:19:25.415Z",
+            "headers": [],
+            "params": [],
+            "reqType": "get",
+            "tests": []
+        },
+        {
+            "_id": "27d64632-46ef-4c7e-ba13-1d49c9fd72c5",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "b6fa8a44-bd5b-4975-b7dc-bb9b745a8a63",
+            "name": "POST USER",
+            "url": "localhost:3000/users",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-03-21T03:19:43.339Z",
+            "modified": "2024-03-21T03:19:43.339Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"Test\",\n  \"password\": \"password123\",\n  \"roles\": [\"user\"]\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "tests": []
+        },
+        {
+            "_id": "a5f8787d-8437-467f-9161-0eb656fa78bb",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "5615c35d-5885-4cc9-95eb-0327421099ae",
+            "name": "GET DRONE (:id) ",
+            "url": "localhost:3000/drones/1",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-03-21T03:10:05.987Z",
+            "modified": "2024-03-21T03:10:05.988Z",
+            "headers": [],
+            "params": [],
+            "reqType": "put",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MDk3ODMwNzQsImV4cCI6MTcwOTc4NjY3NH0.xj41mwgeU29wBIJdXJp1IQ6-nb5DBfGvGmKbOOwc6Y8"
+            },
+            "tests": []
+        },
+        {
+            "_id": "4e47fde0-ae95-44c0-9300-dcdc08bf5c35",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "b992170d-4097-406d-b809-763985912d5d",
+            "name": "GET PILOT (:id) ",
+            "url": "localhost:3000/pilots/1",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-03-21T03:19:05.178Z",
+            "modified": "2024-03-21T03:19:05.178Z",
+            "headers": [],
+            "params": [],
+            "reqType": "get",
+            "tests": []
+        },
+        {
+            "_id": "cc87891f-7c86-4f0e-9445-fe582a7a8bab",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "f2439e3b-d04e-409f-bd14-a999ea41feea",
+            "name": "GET FLIGHT (:id)",
+            "url": "localhost:3000/flights/2",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-03-21T03:19:26.604Z",
+            "modified": "2024-03-21T03:19:26.604Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"footage_recorded\": true\n}",
+                "form": []
+            },
+            "reqType": "get",
+            "tests": []
+        },
+        {
+            "_id": "07d0f650-4b4a-4e89-91b5-00f7cd8a8164",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "b6fa8a44-bd5b-4975-b7dc-bb9b745a8a63",
+            "name": "GET USERS - Admin",
+            "url": "localhost:3000/users",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-03-21T03:19:44.749Z",
+            "modified": "2024-03-21T03:19:44.749Z",
+            "headers": [],
+            "params": [],
+            "reqType": "get",
+            "tests": []
+        },
+        {
+            "_id": "72bee03a-4557-4559-8e60-fa61b9e0a30a",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "5615c35d-5885-4cc9-95eb-0327421099ae",
+            "name": "UPDATE DRONE (:id) - Admin",
+            "url": "localhost:3000/drones/3",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2024-03-21T03:12:25.950Z",
+            "modified": "2024-03-21T03:12:25.950Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Top Gun: Maverick\"\n}",
+                "form": []
+            },
+            "reqType": "put",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MTA5MDY1NzQsImV4cCI6MTcxMDkxMDE3NH0._aUkzunqJNCPBhfZ76N2RGuwGMaZxvORqSSktmVCQ1U"
+            },
+            "tests": []
+        },
+        {
+            "_id": "f62add91-f912-4825-ae80-fe7c57067df5",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "b992170d-4097-406d-b809-763985912d5d",
+            "name": "UPDATE PILOT (:id) - Admin",
+            "url": "localhost:3000/pilots/1",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2024-03-21T03:19:06.225Z",
+            "modified": "2024-03-21T03:19:06.225Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Jayce\"\n}",
+                "form": []
+            },
+            "reqType": "del",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MDk3MTM5MDcsImV4cCI6MTcwOTcxNzUwN30.awXeC84rh6MB1hvf3xjyYKDh0CDmPr73WPCLfb7Ccx8"
+            },
+            "tests": []
+        },
+        {
+            "_id": "61e8e7a2-d87f-4043-b606-9b303c8b3e4b",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "f2439e3b-d04e-409f-bd14-a999ea41feea",
+            "name": "UPDATE FLIGHT (:id) - Admin",
+            "url": "localhost:3000/flights/1",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2024-03-21T03:19:27.679Z",
+            "modified": "2024-03-21T03:19:27.679Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"pilot_id\": 1,\n  \"footage_recorded\": true\n}",
+                "form": []
+            },
+            "reqType": "put",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MTA5MDYzMjIsImV4cCI6MTcxMDkwOTkyMn0.AblPMfW2quxzZwPWeKk7EAnxPyqiFZpua4HLg3AKn_8"
+            },
+            "tests": []
+        },
+        {
+            "_id": "f746a646-5cc8-4d22-b975-8741fcae108e",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "b6fa8a44-bd5b-4975-b7dc-bb9b745a8a63",
+            "name": "GET PROFILE (of current user)",
+            "url": "localhost:3000/profile",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-03-21T03:19:46.159Z",
+            "modified": "2024-03-21T03:19:46.159Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MDk2MDgxMDQsImV4cCI6MTcwOTYxMTcwNH0.oQupoOzyiY_6cqfNX1Ryq_gcylRjCx2H7vLLHf-BW7A"
+            },
+            "tests": []
+        },
+        {
+            "_id": "857f31c7-1cf3-4071-bf50-9aa48ae89c6f",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "5615c35d-5885-4cc9-95eb-0327421099ae",
+            "name": "DELETE DRONE (:id) - Admin",
+            "url": "localhost:3000/drones/1",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2024-03-21T03:10:33.883Z",
+            "modified": "2024-03-21T03:10:33.883Z",
+            "headers": [],
+            "params": [],
+            "reqType": "post",
+            "tests": []
+        },
+        {
+            "_id": "b550292e-c1fb-4e49-a61c-65151750d7e2",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "b992170d-4097-406d-b809-763985912d5d",
+            "name": "DELETE PILOT (:id) - Admin",
+            "url": "localhost:3000/pilots/1",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2024-03-21T03:19:07.205Z",
+            "modified": "2024-03-21T03:19:07.205Z",
+            "headers": [],
+            "params": [],
+            "reqType": "del",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MTA5MDgzMDUsImV4cCI6MTcxMDkxMTkwNX0.oYIsawUw9T2x1KuSdrKBf8cgjPT0WlTdIQJyBwcL64A"
+            },
+            "tests": []
+        },
+        {
+            "_id": "10feff0f-55e4-45cc-bf9c-6e4631b3a7d3",
+            "colId": "bb05128c-36d5-4e0b-94a3-8c75dcac372f",
+            "containerId": "f2439e3b-d04e-409f-bd14-a999ea41feea",
+            "name": "DELETE FLIGHT (:id) - Admin ",
+            "url": "localhost:3000/flights/2",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2024-03-21T03:19:29.243Z",
+            "modified": "2024-03-21T03:19:29.243Z",
+            "headers": [],
+            "params": [],
+            "reqType": "del",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MTA5MDYxOTUsImV4cCI6MTcxMDkwOTc5NX0.OGrxwFxGtzL4loqfx3rI30_mE04J4UbCj6jcQRVE_sc"
+            },
+            "tests": []
+        }
+    ]
+}
