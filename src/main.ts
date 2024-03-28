@@ -5,12 +5,21 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.enableCors();
+
+  // Enable CORS with specific options
+  app.enableCors({
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    allowedHeaders: 'Content-Type, Accept',
+  });
+
   app.useGlobalPipes(
     new ValidationPipe({
-      transform: true,
+      transform: true, // Automatically transform payloads to be objects typed according to their DTO classes
     }),
   );
+
   await app.listen(3000);
 }
 bootstrap();
