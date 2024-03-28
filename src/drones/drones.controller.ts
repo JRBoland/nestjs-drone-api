@@ -10,6 +10,7 @@ import {
   UseInterceptors,
   UseFilters,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { CreateDroneDto, UpdateDroneDto } from './dto';
 import { DronesService } from './drones.service';
@@ -48,6 +49,12 @@ export class DronesController {
   async findAll(): Promise<Drone[]> {
     console.log('Running drones findAll');
     return this.dronesService.findAll();
+  }
+
+  @Get('/search')
+  async search(@Query() query): Promise<Drone[]> {
+    console.log('Running drones search with query:', query);
+    return this.dronesService.search(query);
   }
 
   @Get(':id')

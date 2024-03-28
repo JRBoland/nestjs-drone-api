@@ -57,6 +57,26 @@ export class PilotsService {
     };
   }
 
+  async search(query: any): Promise<Pilot[]> {
+    const qb = this.pilotsRepository.createQueryBuilder('pilot');
+
+    // Process each query parameter individually
+    Object.keys(query).forEach((key) => {
+      const value = query[key];
+      // Check if the field is numeric and not empty
+      if ((key === 'age' || key === 'id') && !isNaN(value) && value !== '') {
+        //  comparison for numeric fields
+        qb.andWhere(`pilot.${key} = :${key}`, { [key]: Number(value) });
+      } else if (value !== '') {
+        // Only to fields that are expected to be text, ILIKE for case insensitive search
+        qb.andWhere(`pilot.${key} ILIKE :${key}`, { [key]: `%${value}%` });
+      }
+    });
+
+    const pilots = await qb.getMany();
+    return pilots;
+  }
+
   async update(id: number, updatePilotDto: UpdatePilotDto): Promise<Pilot> {
     const pilot = await this.pilotsRepository.preload({
       id: id,

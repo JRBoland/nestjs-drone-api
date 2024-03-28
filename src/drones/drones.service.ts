@@ -30,6 +30,26 @@ export class DronesService {
     return drone;
   }
 
+  async search(query: any): Promise<Drone[]> {
+    const qb = this.dronesRepository.createQueryBuilder('drone');
+
+    // Process each query parameter individually
+    Object.keys(query).forEach((key) => {
+      const value = query[key];
+      // Check if the field is numeric and not empty
+      if ((key === 'weight' || key === 'id') && !isNaN(value) && value !== '') {
+        //  comparison for numeric fields
+        qb.andWhere(`drone.${key} = :${key}`, { [key]: Number(value) });
+      } else if (value !== '') {
+        // Only to fields that are expected to be text, ILIKE for case insensitive search
+        qb.andWhere(`drone.${key} ILIKE :${key}`, { [key]: `%${value}%` });
+      }
+    });
+
+    const drones = await qb.getMany();
+    return drones;
+  }
+
   async update(id: number, updateDroneDto: UpdateDroneDto): Promise<Drone> {
     const drone = await this.dronesRepository.preload({
       id: id,
