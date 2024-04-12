@@ -10,6 +10,7 @@ import {
   UseInterceptors,
   UseFilters,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { CreateFlightDto, UpdateFlightDto } from './dto';
 import { FlightsService } from './flights.service';
@@ -48,6 +49,12 @@ export class FlightsController {
   async findAll(): Promise<Flight[]> {
     console.log('Running flights findAll');
     return this.flightsService.findAll();
+  }
+
+  @Get('/search')
+  async search(@Query() query): Promise<Flight[]> {
+    console.log('Running drones search with query:', query);
+    return this.flightsService.search(query);
   }
 
   @UsePipes(ValidationPipe)

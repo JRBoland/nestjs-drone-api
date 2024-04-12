@@ -73,6 +73,35 @@ export class FlightsService {
     return flight;
   }
 
+  async search(query: any): Promise<Flight[]> {
+    const qb = this.flightsRepository.createQueryBuilder('flight');
+
+    // Process each query parameter individually
+    Object.keys(query).forEach((key) => {
+      const value = query[key];
+      // Check if the field is numeric and not empty
+      if (
+        (key === 'drone_id' || key === 'pilot_id' || key === 'id') &&
+        !isNaN(value) &&
+        value !== ''
+      ) {
+        //  comparison for numeric fields
+        qb.andWhere(`flight.${key} = :${key}`, { [key]: Number(value) });
+      } else if (key === 'footage_recorded' && !isNaN(value) && value !== '') {
+        // need to fix
+        qb.andWhere(`flight.${key} = :${key}`, {
+          [key]: Boolean(value),
+        });
+      } else if (value !== '') {
+        // Only to fields that are expected to be text, ILIKE for case insensitive search
+        qb.andWhere(`flight.${key} ILIKE :${key}`, { [key]: `%${value}%` });
+      }
+    });
+
+    const flights = await qb.getMany();
+    return flights;
+  }
+
   async update(id: number, updateFlightDto: UpdateFlightDto): Promise<Flight> {
     const flight = await this.flightsRepository.preload({
       id: id,
