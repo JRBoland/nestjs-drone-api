@@ -103,13 +103,42 @@ export class FlightsService {
   }
 
   async update(id: number, updateFlightDto: UpdateFlightDto): Promise<Flight> {
-    const flight = await this.flightsRepository.preload({
-      id: id,
-      ...updateFlightDto,
+    // Load existing flight
+    const flight = await this.flightsRepository.findOne({
+      where: { id },
+      relations: ['pilot', 'drone'],
     });
-
     if (!flight) {
       throw new NotFoundException(`Flight #${id} not found`);
+    }
+
+    // Update the flight properties
+    flight.flight_date = updateFlightDto.flight_date ?? flight.flight_date;
+    flight.flight_location =
+      updateFlightDto.flight_location ?? flight.flight_location;
+    flight.footage_recorded =
+      updateFlightDto.footage_recorded ?? flight.footage_recorded;
+
+    // Update pilot relationship
+    if (updateFlightDto.pilot_id) {
+      const pilot = await this.pilotRepository.findOneBy({
+        id: updateFlightDto.pilot_id,
+      });
+      if (!pilot) {
+        throw new Error('Pilot not found');
+      }
+      flight.pilot = pilot;
+    }
+
+    // Update drone relationship
+    if (updateFlightDto.drone_id) {
+      const drone = await this.droneRepository.findOneBy({
+        id: updateFlightDto.drone_id,
+      });
+      if (!drone) {
+        throw new Error('Drone not found');
+      }
+      flight.drone = drone;
     }
 
     await this.flightsRepository.save(flight);
