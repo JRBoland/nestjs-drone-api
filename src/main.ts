@@ -8,7 +8,7 @@ async function bootstrap() {
 
   // Enable CORS with specific options
   app.enableCors({
-    origin: true,
+    origin: 'http://ec2-13-54-83-237.ap-southeast-2.compute.amazonaws.com',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     allowedHeaders: 'Content-Type, Accept, Authorization',
